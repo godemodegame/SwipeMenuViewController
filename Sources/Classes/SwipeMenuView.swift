@@ -183,11 +183,11 @@ public protocol SwipeMenuViewDataSource: class {
     func swipeMenuView(_ swipeMenuView: SwipeMenuView, viewControllerForPageAt index: Int) -> UIViewController
 
     /// Return attributed string to be displayed at the tab in `TabView`.
-    func tabView(_ tabView: TabView, titleForItemAt index: Int) -> NSAttributedString?
+    func tabView(_ tabView: SwipeMenuView, titleForItemAt index: Int) -> NSAttributedString?
 }
 
 public extension SwipeMenuViewDataSource {
-    func tabView(_: TabView, titleForItemAt _: Int) -> NSAttributedString? {
+    func tabView(_: SwipeMenuView, titleForItemAt _: Int) -> NSAttributedString? {
         nil
     }
 }
@@ -389,6 +389,10 @@ open class SwipeMenuView: UIView {
 // MARK: - TabViewDelegate, TabViewDataSource
 
 extension SwipeMenuView: TabViewDelegate, TabViewDataSource {
+    public func tabView(_ tabView: TabView, titleForItemAt index: Int) -> NSAttributedString? {
+        return dataSource?.tabView(self, titleForItemAt: index)
+    }
+    
 
     public func tabView(_ tabView: TabView, didSelectTabAt index: Int) {
 

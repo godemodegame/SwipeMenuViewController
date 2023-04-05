@@ -31,12 +31,6 @@ public protocol TabViewDataSource: class {
     func tabView(_ tabView: TabView, titleForItemAt index: Int) -> NSAttributedString?
 }
 
-public extension TabViewDataSource {
-    func tabView(_: TabView, titleForItemAt _: Int) -> NSAttributedString? {
-        nil
-    }
-}
-
 open class TabView: UIScrollView {
 
     open weak var tabViewDelegate: TabViewDelegate?
