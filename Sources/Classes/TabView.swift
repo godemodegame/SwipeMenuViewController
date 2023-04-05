@@ -26,6 +26,15 @@ public protocol TabViewDataSource: class {
 
     /// Return strings to be displayed at the tab in `TabView`.
     func tabView(_ tabView: TabView, titleForItemAt index: Int) -> String?
+
+    /// Return attributed string to be displayed at the tab in `TabView`.
+    func tabView(_ tabView: TabView, titleForItemAt index: Int) -> NSAttributedString?
+}
+
+extension TabViewDataSource {
+    func tabView(_: TabView, titleForItemAt _: Int) -> NSAttributedString? {
+        nil
+    }
 }
 
 open class TabView: UIScrollView {
@@ -214,7 +223,11 @@ open class TabView: UIScrollView {
             let tabItemView = TabItemView(frame: CGRect(x: xPosition, y: 0, width: options.itemView.width, height: containerView.frame.size.height))
             tabItemView.translatesAutoresizingMaskIntoConstraints = false
             tabItemView.clipsToBounds = options.clipsToBounds
-            if let title = dataSource.tabView(self, titleForItemAt: index) {
+            if let attributedString: NSAttributedString = dataSource.tabView(self, titleForItemAt: index) {
+                tabItemView.titleLabel.attributedText = attributedString
+                tabItemView.titleLabel.numberOfLines = 0
+            }
+            if let title: String = dataSource.tabView(self, titleForItemAt: index) {
                 tabItemView.titleLabel.text = title
                 tabItemView.titleLabel.font = options.itemView.font
                 tabItemView.textColor = options.itemView.textColor
