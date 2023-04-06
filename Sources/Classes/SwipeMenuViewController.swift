@@ -67,4 +67,12 @@ open class SwipeMenuViewController: UIViewController, SwipeMenuViewDelegate, Swi
         vc.didMove(toParent: self)
         return vc
     }
+
+    public func tabView(_ tabView: SwipeMenuView, titleForItemAt index: Int) -> NSAttributedString? {
+        if let tabView = swipeMenuView.tabView {
+            return swipeMenuView.tabView(tabView, titleForItemAt: index)
+        } else {
+            return nil
+        }
+    }
 }
